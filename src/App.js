@@ -2,6 +2,8 @@ import React, { Component } from 'react';
 import { ReactiveBase, DataSearch } from '@appbaseio/reactivesearch';
 import theme from './theme';
 import './App.css';
+import Results from './components/Results'
+
 
 class App extends Component {
   render() {
@@ -31,6 +33,7 @@ class App extends Component {
                   input: 'search-input'
                 }}
               />
+              <Results />
             </div>
           </div>
         </ReactiveBase>
