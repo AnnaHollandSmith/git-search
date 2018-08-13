@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { ReactiveBase } from '@appbaseio/reactivesearch';
+import { ReactiveBase, DataSearch } from '@appbaseio/reactivesearch';
 import theme from './theme';
 import './App.css';
 
@@ -16,6 +16,23 @@ class App extends Component {
           <nav className="navbar">
             <div className="title">GitSearch</div>
           </nav>
+          <div className="flex row-reverse app-container">
+            <div className="results-container">
+              <DataSearch 
+                componentId="repo"
+                filterLAbel="Search"
+                dataField={['name', 'description', 'name.raw', 'fullname', 'owner', 'topics']}
+                placeholder="Search Repos"
+                autosuggest={false}
+                iconPosition="left"
+                URLParams
+                className="data-search-container results-container"
+                innerClass={{
+                  input: 'search-input'
+                }}
+              />
+            </div>
+          </div>
         </ReactiveBase>
       </section>
     );
