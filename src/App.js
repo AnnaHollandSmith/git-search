@@ -3,9 +3,33 @@ import { ReactiveBase, DataSearch } from '@appbaseio/reactivesearch';
 import theme from './theme';
 import './App.css';
 import Results from './components/Results'
+import Header from './components/Header';
 
 
-class App extends Component {
+  class App extends Component {
+    constructor(props) {
+      super(props);
+      this.state = {
+        currentTopics: [],
+      };
+    }
+  
+    setTopics = (currentTopics) => {
+      this.setState({
+        currentTopics: currentTopics || [],
+      });
+    }
+  
+    toggleTopic = (topic) => {
+      const { currentTopics } = this.state;
+      const nextState = currentTopics.includes(topic)
+        ? currentTopics.filter(item => item !== topic)
+        : currentTopics.concat(topic);
+      this.setState({
+        currentTopics: nextState,
+      });
+    }
+
   render() {
     return (
       <section className="container">
@@ -15,10 +39,9 @@ class App extends Component {
           type="gitxplore-latest"
           theme={theme}
         >
-          <nav className="navbar">
-            <div className="title">GitSearch</div>
-          </nav>
+        
           <div className="flex row-reverse app-container">
+            <Header currentTopics={this.state.currentTopics} setTopics={this.setTopics} />
             <div className="results-container">
               <DataSearch 
                 componentId="repo"
@@ -33,7 +56,7 @@ class App extends Component {
                   input: 'search-input'
                 }}
               />
-              <Results />
+              <Results currentTopics={this.currentTopics} toggleTopic={this.toggleTopic} />
             </div>
           </div>
         </ReactiveBase>
